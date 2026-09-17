@@ -1,0 +1,287 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    
+    <meta charset="utf-8" />
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0" />
+
+    <title>
+        @ViewData["Title"] - ShashaStyle
+    </title>
+
+    <link rel="stylesheet"
+          href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet"
+          href="~/css/store.css"
+          asp-append-version="true" />
+    
+
+</head>
+
+<body>
+
+    
+    <!-- NAVBAR -->
+
+    <nav class="store-navbar">
+
+        <div class="store-container">
+
+            <a asp-controller="Store"
+               asp-action="Index"
+               class="store-logo">
+
+                SHASHA<span>STYLE</span>
+
+            </a>
+
+            <div class="store-navigation">
+
+                <!-- HOME -->
+
+                <a asp-controller="Store"
+                   asp-action="Index">
+
+                    Home
+
+                </a>
+
+                <!-- CATEGORIES -->
+
+                <a asp-controller="Store"
+                   asp-action="Categories">
+
+                    Categories
+
+                </a>
+
+                <!-- SHOP -->
+
+                <a asp-controller="Store"
+                   asp-action="Index"
+                   asp-fragment="products">
+
+                    Shop
+
+                </a>
+
+                <!-- ABOUT -->
+
+                <a asp-controller="Store"
+                   asp-action="Index"
+                   asp-fragment="about">
+
+                    About
+
+                </a>
+
+                <!-- CONTACT -->
+
+                <a asp-controller="Home"
+                   asp-action="Contact">
+
+                    Contact
+
+                </a>
+
+                <!-- CART -->
+
+                <a asp-controller="Cart"
+                   asp-action="Index"
+                   class="cart-button">
+
+                    🛒
+
+                    <span>
+                        Cart
+                    </span>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- CONTENT -->
+
+    <main>
+
+        @RenderBody()
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer class="store-footer">
+
+        <div class="store-container">
+
+            <div class="footer-grid">
+
+                <!-- BRAND -->
+
+                <div>
+
+                    <div class="footer-logo">
+
+                        SHASHA<span>STYLE</span>
+
+                    </div>
+
+                    <p>
+
+                        Modern streetwear.
+                        Designed for identity.
+                        Built for confidence.
+
+                    </p>
+
+                </div>
+
+
+                <!-- SHOP -->
+
+                <div>
+
+                    <h5>
+                        Shop
+                    </h5>
+
+                    <a asp-controller="Store"
+                       asp-action="Index"
+                       asp-fragment="products">
+
+                        Products
+
+                    </a>
+
+                    <a asp-controller="Store"
+                       asp-action="Categories">
+
+                        Categories
+
+                    </a>
+
+                    <a asp-controller="Store"
+                       asp-action="Index"
+                       asp-fragment="products">
+
+                        New Arrivals
+
+                    </a>
+
+                </div>
+
+
+                <!-- CUSTOMER -->
+
+                <div>
+
+                    <h5>
+                        Customer
+                    </h5>
+
+                    <a asp-controller="Home"
+                       asp-action="Contact">
+
+                        Contact Us
+
+                    </a>
+
+                    <a href="#">
+                        Shipping
+                    </a>
+
+                    <a href="#">
+                        Returns
+                    </a>
+
+                </div>
+
+
+                <!-- SHASHASTYLE -->
+
+                <div>
+
+                    <h5>
+                        ShashaStyle
+                    </h5>
+
+                    <a asp-controller="Store"
+                       asp-action="Index"
+                       asp-fragment="about">
+
+                        About Us
+
+                    </a>
+
+                    <a asp-controller="Store"
+                       asp-action="Index"
+                       asp-fragment="about">
+
+                        Our Story
+
+                    </a>
+
+                    <a href="#">
+                        Instagram
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-bottom">
+
+                <span>
+
+                    © @DateTime.Now.Year ShashaStyle
+
+                </span>
+
+                <span>
+                    Designed by Luthando Hlengwa
+                </span>
+
+                <span>
+
+                    All rights reserved.
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js">
+    </script>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+    <script src="~/js/site.js"
+            asp-append-version="true">
+    </script>
+
+    @await RenderSectionAsync(
+    "Scripts",
+        required: false)
+    
+
+</body>
+
+</html>

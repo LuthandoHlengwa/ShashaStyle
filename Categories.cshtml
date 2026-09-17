@@ -1,0 +1,90 @@
+﻿@model IEnumerable<ShashaStyle.Models.Category>
+
+@{
+    ViewData["Title"] = "Categories";
+    Layout = "~/Views/Shared/_StoreLayout.cshtml";
+}
+
+<section class="categories-page">
+
+    
+    <div class="categories-heading">
+        <div class="store-container">
+
+            <span class="categories-label">
+                SHASHA STYLE
+            </span>
+
+            <h1>Shop by Category</h1>
+
+            <p>
+                Explore the ShashaStyle collection and find your
+                everyday streetwear essentials.
+            </p>
+
+        </div>
+    </div>
+
+    <div class="categories-container">
+
+        @if (Model != null && Model.Any())
+        {
+            <div class="category-grid">
+
+                @foreach (var category in Model)
+                {
+                    <a asp-controller="Store"
+                       asp-action="Category"
+                       asp-route-id="@category.CategoryId"
+                       class="category-card">
+
+                        <div class="category-card-content">
+
+                            <span class="category-number">
+                                @category.CategoryId.ToString("00")
+                            </span>
+
+                            <div>
+                                <h2>@category.Name</h2>
+
+                                <span class="category-products">
+                                    @category.Products.Count
+                                    @(category.Products.Count == 1 ? "Product" : "Products")
+                                </span>
+                            </div>
+
+                            <span class="category-arrow">
+                                →
+                            </span>
+
+                        </div>
+
+                    </a>
+                }
+
+            </div>
+        }
+        else
+        {
+            <div class="categories-empty">
+
+                <h2>No Categories Available</h2>
+
+                <p>
+                    Categories will appear here once products
+                    have been added to the store.
+                </p>
+
+                <a asp-controller="Store"
+                   asp-action="Index"
+                   class="primary-button">
+                    Back to Shop
+                </a>
+
+            </div>
+        }
+
+    </div>
+    
+
+</section>

@@ -1,0 +1,405 @@
+﻿@model ShashaStyle.Models.Product
+
+@{
+    ViewData["Title"] = Model.Name;
+    Layout = "~/Views/Shared/_StoreLayout.cshtml";
+
+    var totalStock = Model.Variants
+        .Where(v => v.IsActive)
+        .Sum(v => v.StockQuantity);
+
+    var availableVariants = Model.Variants
+        .Where(v => v.IsActive && v.StockQuantity > 0)
+        .ToList();
+}
+
+
+<div class="store-container">
+
+    <!-- BREADCRUMB -->
+
+    <div class="product-breadcrumb">
+
+        <a asp-controller="Store"
+           asp-action="Index">
+
+            Shop
+
+        </a>
+
+        <span> / </span>
+
+        @if (Model.Category != null)
+        {
+            <a asp-controller="Store"
+               asp-action="Category"
+               asp-route-id="@Model.CategoryId">
+
+                @Model.Category.Name
+
+            </a>
+
+            <span> / </span>
+        }
+
+        <span>
+            @Model.Name
+        </span>
+
+    </div>
+
+
+    <!-- PRODUCT -->
+
+    <section class="product-details-section">
+
+        <div class="product-details-grid">
+
+
+            <!-- PRODUCT IMAGE -->
+
+            <div class="product-details-image">
+
+                @if (!string.IsNullOrWhiteSpace(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl"
+                         alt="@Model.Name" />
+                }
+                else
+                {
+                    <div class="product-large-placeholder">
+
+                        SHASHA
+                        <span>STYLE</span>
+
+                    </div>
+                }
+
+            </div>
+
+
+            <!-- PRODUCT INFORMATION -->
+
+            <div class="product-information">
+
+                <div class="product-detail-category">
+
+                    @(Model.Category?.Name ?? "SHASHA STYLE")
+
+                </div>
+
+
+                <h1>
+                    @Model.Name
+                </h1>
+
+
+                <div class="product-detail-price">
+
+                    R @Model.Price.ToString("N2")
+
+                </div>
+
+
+                <!-- STOCK -->
+
+                <div class="product-stock">
+
+                    @if (totalStock > 0)
+                    {
+                        <span class="stock-dot available">
+                        </span>
+
+                        <span>
+                            In Stock
+                        </span>
+
+                        <small>
+                            (@totalStock available)
+                        </small>
+                    }
+                    else
+                    {
+                        <span class="stock-dot unavailable">
+                        </span>
+
+                        <span>
+                            Out of Stock
+                        </span>
+                    }
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="product-description">
+
+                    <h5>
+                        Description
+                    </h5>
+
+                    <p>
+
+                        @(string.IsNullOrWhiteSpace(Model.Description)
+                                                ? "A premium ShashaStyle piece designed for modern streetwear culture."
+                                                : Model.Description)
+
+                    </p>
+
+                </div>
+
+
+                <!-- VARIANTS -->
+                @if (Model.Variants.Any())
+                {
+
+                    <div class="variant-section">
+
+                        <h5>
+                            Select Size & Colour
+                        </h5>
+
+
+                        <div class="variant-list">
+
+                            @foreach (var variant in Model.Variants
+                                                    .Where(v => v.IsActive))
+                            {
+
+                                <div class="variant-item
+                                            @(variant.StockQuantity <= 0
+                                                                             ? "variant-unavailable"
+                                                                             : "")">
+
+                            <div>
+
+                                        <strong>
+                                            @variant.Size
+                                        </strong>
+
+                                        <span>
+                                            @variant.Colour
+                                        </span>
+
+                                    </div>
+
+
+                                    <div class="variant-stock">
+
+                                @if (variant.StockQuantity > 0)
+                                        {
+                                            <span>
+                                                @variant.StockQuantity available
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span>
+                                                Sold out
+                                            </span>
+                                        }
+
+                                    </div>
+
+                                </div>
+
+                            }
+
+                        </div>
+
+                    </div>
+
+                }
+
+
+                <!-- SKU -->
+                @if (Model.Variants.Any())
+                {
+
+                    <div class="product-sku">
+
+                        <strong>
+                            Product SKUs
+                        </strong>
+
+                        <div>
+
+                            @foreach (var variant in Model.Variants
+                                                    .Where(v => v.IsActive))
+                            {
+                                <span>
+                                    @variant.SKU
+                                </span>
+                            }
+
+                        </div>
+
+                    </div>
+
+                }
+
+
+                <!-- ADD TO CART -->
+                @if (availableVariants.Any())
+                {
+                    <form asp-controller="Cart"
+                          asp-action="Add"
+                          method="post"
+                          class="add-cart-form">
+
+                        @Html.AntiForgeryToken()
+
+                        <div class="variant-selector">
+
+                            <label for="productVariantId">
+                                Choose Size & Colour
+                            </label>
+
+                            <select id="productVariantId"
+                                    name="productVariantId"
+                                    class="variant-select"
+                                    required>
+
+                                <option value="">
+                                    Select an option
+                                </option>
+
+                                @foreach (var variant in availableVariants)
+                                {
+                                    <option value="@variant.ProductVariantId">
+
+                                        @variant.Size /
+                                        @variant.Colour
+                                        —
+                                        @variant.StockQuantity available
+
+                                    </option>
+                                }
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="add-cart-section">
+
+                            <div class="quantity-control">
+
+                                <button type="button"
+                                        onclick="decreaseQuantity()">
+
+                                    −
+
+                                </button>
+
+                                <input type="number"
+                                       id="quantity"
+                                       name="quantity"
+                                       value="1"
+                                       min="1"
+                                       max="10" />
+
+                                <button type="button"
+                                        onclick="increaseQuantity()">
+
+                                    +
+
+                                </button>
+
+                            </div>
+
+
+                            <button type="submit"
+                                    class="add-cart-button">
+
+                                Add to Cart
+
+                            </button>
+
+                        </div>
+
+                    </form>
+                }
+                else
+                {
+                    <button type="button"
+                            class="sold-out-button"
+                            disabled>
+
+                        Out of Stock
+
+                    </button>
+                }
+
+
+                <a asp-controller="Store"
+                   asp-action="Index"
+                   class="continue-shopping">
+
+                    ← Continue Shopping
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+@section Scripts {
+
+    <script>
+
+        function increaseQuantity() {
+
+            const input =
+                document.getElementById("quantity");
+
+            let value =
+                parseInt(input.value);
+
+            if (value < 10) {
+
+                input.value = value + 1;
+
+            }
+
+        }
+
+
+        function decreaseQuantity() {
+
+            const input =
+                document.getElementById("quantity");
+
+            let value =
+                parseInt(input.value);
+
+            if (value > 1) {
+
+                input.value = value - 1;
+
+            }
+
+        }
+
+
+        function addToCart() {
+
+            const quantity =
+                document.getElementById("quantity").value;
+
+            alert(
+                "Cart functionality is coming next. Quantity: "
+                + quantity
+            );
+
+        }
+
+    </script>
+
+}

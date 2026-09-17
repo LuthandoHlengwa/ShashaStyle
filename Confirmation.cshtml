@@ -1,0 +1,188 @@
+﻿@model ShashaStyle.Models.Order
+
+@{
+    ViewData["Title"] = "Order Confirmed";
+    Layout = "~/Views/Shared/_StoreLayout.cshtml";
+}
+
+
+<div class="store-container">
+
+    <section class="confirmation-page">
+
+        <div class="confirmation-icon">
+            ✓
+        </div>
+
+
+        <p class="confirmation-label">
+            SHASHA STYLE
+        </p>
+
+
+        <h1>
+            Order Confirmed
+        </h1>
+
+
+        <p class="confirmation-message">
+
+            Thank you, @Model.FirstName.
+            Your order has been successfully placed.
+
+        </p>
+
+
+        <div class="order-number-box">
+
+            <span>
+                ORDER NUMBER
+            </span>
+
+            <strong>
+                @Model.OrderNumber
+            </strong>
+
+        </div>
+
+
+        <div class="confirmation-grid">
+
+
+            <!-- CUSTOMER -->
+
+            <div>
+
+                <h3>
+                    Delivery Details
+                </h3>
+
+                <p>
+
+                    @Model.FirstName
+                    @Model.LastName
+
+                    <br />
+
+                    @Model.Address
+
+                    <br />
+
+                    @Model.City,
+                    @Model.Province
+
+                    <br />
+
+                    @Model.PostalCode
+
+                </p>
+
+            </div>
+
+
+            <!-- CONTACT -->
+
+            <div>
+
+                <h3>
+                    Contact
+                </h3>
+
+                <p>
+
+                    @Model.Email
+
+                    <br />
+
+                    @Model.Phone
+
+                </p>
+
+            </div>
+
+
+            <!-- TOTAL -->
+
+            <div>
+
+                <h3>
+                    Order Total
+                </h3>
+
+                <strong class="confirmation-total">
+
+                    R @Model.Total.ToString("N2")
+
+                </strong>
+
+                <p>
+                    Status: @Model.Status
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- ITEMS -->
+
+        <div class="confirmation-items">
+
+            <h2>
+                Order Items
+            </h2>
+
+
+            @foreach (var item in Model.Items)
+            {
+
+                <div class="confirmation-item">
+
+                    <div>
+
+                        <strong>
+                            @item.ProductName
+                        </strong>
+
+                        <span>
+
+                            @item.Size /
+                            @item.Colour
+
+                            ·
+
+                            Qty @item.Quantity
+
+                        </span>
+
+                    </div>
+
+
+                    <strong>
+
+                        R @item.Total.ToString("N2")
+
+                    </strong>
+
+                </div>
+
+            }
+
+        </div>
+
+
+        <div class="confirmation-actions">
+
+            <a asp-controller="Store"
+               asp-action="Index"
+               class="hero-button">
+
+                Continue Shopping
+
+            </a>
+
+        </div>
+
+    </section>
+
+</div>

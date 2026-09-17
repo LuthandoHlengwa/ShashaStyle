@@ -1,0 +1,145 @@
+﻿@{
+    ViewData["Title"] = "Contact Us";
+    Layout = "~/Views/Shared/_StoreLayout.cshtml";
+}
+
+<div class="contact-page">
+
+ 
+    <section class="contact-header">
+        <div class="container">
+            <span class="contact-label">GET IN TOUCH</span>
+            <h1>Contact ShashaStyle</h1>
+            <p>
+                Have a question about an item, your order, sizing or delivery?
+                Our team is here to help.
+            </p>
+        </div>
+    </section>
+
+    <section class="contact-content">
+        <div class="container contact-grid">
+
+            <div class="contact-info">
+
+                <div class="contact-card">
+                    <div class="contact-icon">📍</div>
+                    <div>
+                        <h3>Visit Us</h3>
+                        <p>ShashaStyle Store</p>
+                        <p>Hammarsdale</p>
+                        <p>KwaZulu-Natal</p>
+                        <p>South Africa</p>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">📞</div>
+                    <div>
+                        <h3>Call Us</h3>
+                        <p>+27 67 623 6239</p>
+                        <small>Monday – Friday, 08:00 – 17:00</small>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">✉️</div>
+                    <div>
+                        <h3>Email Us</h3>
+                        <p>thandomashasha1@icloud.com</p>
+                        <small>We normally respond within 24 hours.</small>
+                    </div>
+                </div>
+
+                <div class="contact-card">
+                    <div class="contact-icon">💬</div>
+                    <div>
+                        <h3>WhatsApp</h3>
+                        <p>Chat with our team</p>
+                        <a href="https://wa.me/27676236239"
+                           target="_blank"
+                           class="contact-whatsapp">
+                            WhatsApp Us
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="contact-form-card">
+
+                <span class="contact-label">SEND A MESSAGE</span>
+                <h2>How can we help?</h2>
+
+                <form method="post">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text"
+                                   name="FirstName"
+                                   placeholder="Your first name"
+                                   required />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text"
+                                   name="LastName"
+                                   placeholder="Your last name"
+                                   required />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input type="email"
+                               name="Email"
+                               placeholder="you@example.com"
+                               required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Subject</label>
+                        <select name="Subject">
+                            <option>General Enquiry</option>
+                            <option>Product Information</option>
+                            <option>Order Support</option>
+                            <option>Delivery Question</option>
+                            <option>Returns & Exchanges</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Message</label>
+                        <textarea name="Message"
+                                  rows="6"
+                                  placeholder="Write your message here..."
+                                  required></textarea>
+                    </div>
+
+                    <button type="submit" class="contact-submit">
+                        Send Message
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section class="contact-help">
+        <div class="container">
+            <h2>We're here to help.</h2>
+            <p>
+                Whether you're looking for the right size, checking an order,
+                or simply want to know more about ShashaStyle, feel free to
+                contact us.
+            </p>
+        </div>
+    </section>
+    
+
+</div>

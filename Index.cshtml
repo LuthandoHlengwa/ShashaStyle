@@ -1,0 +1,366 @@
+﻿@model ShashaStyle.Models.ViewModels.StoreHomeViewModel
+
+@{
+    ViewData["Title"] = "Shop";
+    Layout = "~/Views/Shared/_StoreLayout.cshtml";
+}
+
+
+<!-- ========================================
+     HERO
+======================================== -->
+
+<section class="store-hero">
+
+    <div class="hero-content">
+
+        <p class="text-uppercase">
+            ShashaStyle Collection
+        </p>
+
+        <h1>
+            Wear Your Identity.
+        </h1>
+
+        <p>
+
+            Contemporary streetwear created
+            for people who refuse to blend in.
+
+        </p>
+
+        <a href="#products"
+           class="hero-button">
+
+            Shop Collection
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================
+     CATEGORIES
+======================================== -->
+
+<section class="store-section"
+         id="categories">
+
+    <div class="store-container">
+
+        <div class="section-heading">
+
+            <div>
+
+                <p>
+                    EXPLORE
+                </p>
+
+                <h2>
+                    Shop Categories
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        @if (!Model.Categories.Any())
+        {
+            <div class="alert alert-light">
+
+                No categories are available yet.
+
+            </div>
+        }
+        else
+        {
+
+            <div class="category-grid">
+
+                @foreach (var category in Model.Categories)
+                {
+
+                    <a asp-controller="Store"
+                       asp-action="Category"
+                       asp-route-id="@category.CategoryId"
+                       class="category-card">
+
+                        <div>
+
+                            <h3>
+                                @category.Name
+                            </h3>
+
+                            <small>
+
+                                Explore Collection →
+
+                            </small>
+
+                        </div>
+
+                    </a>
+
+                }
+
+            </div>
+
+        }
+
+    </div>
+
+</section>
+
+
+<!-- ========================================
+     FEATURED PRODUCTS
+======================================== -->
+
+<section class="store-section"
+         id="products"
+         style="background:#f7f7f7;">
+
+    <div class="store-container">
+
+        <div class="section-heading">
+
+            <div>
+
+                <p>
+                    SHASHASTYLE
+                </p>
+
+                <h2>
+                    Featured
+                </h2>
+
+            </div>
+
+            <span class="text-muted">
+
+                Latest drops
+
+            </span>
+
+        </div>
+
+
+        @if (!Model.FeaturedProducts.Any())
+        {
+
+            <div class="text-center py-5">
+
+                <h4>
+                    Products coming soon.
+                </h4>
+
+                <p class="text-muted">
+
+                    Check back soon for the
+                    latest ShashaStyle collection.
+
+                </p>
+
+            </div>
+
+        }
+        else
+        {
+
+            <div class="product-grid">
+
+                @foreach (var product in Model.FeaturedProducts)
+                {
+
+                    <a asp-controller="Store"
+                       asp-action="Product"
+                       asp-route-id="@product.ProductId"
+                       class="product-card">
+
+                        <div class="product-image">
+
+                            @if (!string.IsNullOrWhiteSpace(product.ImageUrl))
+                            {
+
+                                <img src="@product.ImageUrl"
+                                     alt="@product.Name" />
+
+                            }
+                            else
+                            {
+
+                                <div class="product-placeholder">
+
+                                    SHASHA STYLE
+
+                                </div>
+
+                            }
+
+                        </div>
+
+
+                        <div class="product-category">
+
+                            @(product.Category?.Name ?? "Collection")
+
+                        </div>
+
+
+                        <div class="product-name">
+
+                            @product.Name
+
+                        </div>
+
+
+                        <div class="product-price">
+
+                            R @product.Price.ToString("N2")
+
+                        </div>
+
+                    </a>
+
+                }
+
+            </div>
+
+        }
+
+    </div>
+
+</section>
+
+
+<!-- ========================================
+     ABOUT
+======================================== -->
+
+<section class="about-section"
+         id="about">
+
+    <div class="store-container">
+
+        <div class="about-content">
+
+            <p class="text-uppercase">
+
+                THE SHASHA STYLE PHILOSOPHY
+
+            </p>
+
+            <h2>
+
+                Made to stand out.
+
+            </h2>
+
+            <p>
+
+                ShashaStyle is more than clothing.
+                It is a statement of identity,
+                confidence and individuality.
+
+                Every piece is designed with
+                modern street culture in mind.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ========================================
+     LATEST PRODUCTS
+======================================== -->
+
+<section class="store-section">
+
+    <div class="store-container">
+
+        <div class="section-heading">
+
+            <div>
+
+                <p>
+                    JUST DROPPED
+                </p>
+
+                <h2>
+                    New Arrivals
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div class="product-grid">
+
+            @foreach (var product in Model.LatestProducts)
+            {
+
+                <a asp-controller="Store"
+                   asp-action="Product"
+                   asp-route-id="@product.ProductId"
+                   class="product-card">
+
+                    <div class="product-image">
+
+                        @if (!string.IsNullOrWhiteSpace(product.ImageUrl))
+                        {
+
+                            <img src="@product.ImageUrl"
+                                 alt="@product.Name" />
+
+                        }
+                        else
+                        {
+
+                            <div class="product-placeholder">
+
+                                SHASHA STYLE
+
+                            </div>
+
+                        }
+
+                    </div>
+
+
+                    <div class="product-category">
+
+                        @(product.Category?.Name ?? "Collection")
+
+                    </div>
+
+
+                    <div class="product-name">
+
+                        @product.Name
+
+                    </div>
+
+
+                    <div class="product-price">
+
+                        R @product.Price.ToString("N2")
+
+                    </div>
+
+                </a>
+
+            }
+
+        </div>
+
+    </div>
+
+</section>

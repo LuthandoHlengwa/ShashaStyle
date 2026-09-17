@@ -1,0 +1,185 @@
+﻿@model ShashaStyle.Models.ProductVariant
+
+@{
+    ViewData["Title"] = "Adjust Stock";
+}
+
+<div class="container mt-4">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-7">
+
+            <div class="card shadow-sm border-0">
+
+                <div class="card-body p-4">
+
+                    <h1 class="fw-bold">
+                        Adjust Stock
+                    </h1>
+
+                    <p class="text-muted">
+                        Add or remove inventory for this variant.
+                    </p>
+
+
+                    <!-- Product -->
+
+                    <div class="alert alert-light border mb-4">
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+
+                                <small class="text-muted">
+                                    Product
+                                </small>
+
+                                <h5>
+                                    @Model.Product?.Name
+                                </h5>
+
+                            </div>
+
+
+                            <div class="col-md-3">
+
+                                <small class="text-muted">
+                                    Size
+                                </small>
+
+                                <h5>
+                                    @Model.Size
+                                </h5>
+
+                            </div>
+
+
+                            <div class="col-md-3">
+
+                                <small class="text-muted">
+                                    Colour
+                                </small>
+
+                                <h5>
+                                    @Model.Colour
+                                </h5>
+
+                            </div>
+
+                        </div>
+
+
+                        <hr />
+
+
+                        <div class="row">
+
+                            <div class="col-md-6">
+
+                                <small class="text-muted">
+                                    SKU
+                                </small>
+
+                                <div>
+                                    <code>
+                                        @Model.SKU
+                                    </code>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <small class="text-muted">
+                                    Current Stock
+                                </small>
+
+                                <h3>
+                                    @Model.StockQuantity
+                                </h3>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger">
+                            @TempData["ErrorMessage"]
+                        </div>
+                    }
+
+
+                    <form asp-action="Adjust"
+                          method="post">
+
+                        <input type="hidden"
+                               name="id"
+                               value="@Model.ProductVariantId" />
+
+
+                        <div class="mb-4">
+
+                            <label class="form-label">
+                                Quantity
+                            </label>
+
+                            <input type="number"
+                                   name="quantity"
+                                   min="1"
+                                   class="form-control form-control-lg"
+                                   placeholder="Enter quantity"
+                                   required />
+
+                        </div>
+
+
+                        <div class="d-grid gap-2">
+
+                            <button type="submit"
+                                    name="actionType"
+                                    value="add"
+                                    class="btn btn-success btn-lg">
+
+                                + Add Stock
+
+                            </button>
+
+
+                            <button type="submit"
+                                    name="actionType"
+                                    value="remove"
+                                    class="btn btn-danger btn-lg">
+
+                                − Remove Stock
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+
+                    <div class="mt-4">
+
+                        <a asp-action="Index"
+                           class="btn btn-outline-secondary">
+                            ← Back to Stock
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
